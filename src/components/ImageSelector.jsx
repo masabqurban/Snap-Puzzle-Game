@@ -73,39 +73,39 @@ const ImageSelector = ({ selectedImage, setSelectedImage, disabled }) => {
         ))}
       </div>
       
-      <div className="mt-4">
-        <p className="text-sm text-gray-600 mb-2">Or upload your own image:</p>
-        <label 
-          className={`flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium 
-            ${disabled 
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-              : 'bg-white text-gray-700 hover:bg-gray-50 cursor-pointer'
-            }`}
-        >
-          <input
-            type="file"
-            accept="image/*"
-            className="sr-only"
-            onChange={handleImageUpload}
-            disabled={disabled}
-          />
-          <ImageIcon className="h-4 w-4 mr-2" />
-          Browse...
-        </label>
-      </div>
-      
-      {selectedImage && (
-        <div className="mt-4">
-          <p className="text-sm font-medium text-gray-700">Selected image:</p>
-          <div className="mt-1 relative h-40 rounded-md overflow-hidden">
-            <img 
-              src={selectedImage.url} 
-              alt={selectedImage.alt}
-              className="w-full h-full object-contain"
+      <div className="flex flex-col sm:flex-row items-center gap-4">
+        <div className="w-full sm:w-auto">
+          <label 
+            className={`flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium 
+              ${disabled 
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                : 'bg-white text-gray-700 hover:bg-gray-50 cursor-pointer'
+              }`}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              className="sr-only"
+              onChange={handleImageUpload}
+              disabled={disabled}
             />
-          </div>
+            <ImageIcon className="h-4 w-4 mr-2" />
+            Upload Image
+          </label>
         </div>
-      )}
+        
+        {selectedImage && (
+          <div className="mt-3 sm:mt-0">
+            <div className="relative w-40 h-40 rounded-md overflow-hidden border border-gray-200 shadow-sm">
+              <img 
+                src={selectedImage.url} 
+                alt={selectedImage.alt}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

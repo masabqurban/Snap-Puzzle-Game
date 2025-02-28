@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GameBoard from './components/GameBoard';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import ImageSelector from './components/ImageSelector';
 import DifficultySelector from './components/DifficultySelector';
 import GameControls from './components/GameControls';
@@ -87,6 +88,19 @@ function App() {
     }
   };
 
+  const restartGame = () => {
+    // Reset everything to initial state
+    setSelectedImage(null);
+    setDifficulty(3);
+    setPieces([]);
+    setCorrectPieces(new Set());
+    setIsPlaying(false);
+    setTime(0);
+    setMoves(0);
+    clearSavedGame();
+    setHasSavedGame(false);
+  };
+
   const saveCurrentGame = () => {
     if (isPlaying && pieces.length > 0) {
       saveGame({
@@ -146,21 +160,25 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col">
-      <Header />
+      <Header onRestart={restartGame} />
       
       <main className="flex-1 container mx-auto px-4 py-6 flex flex-col lg:flex-row gap-6">
         <div className="lg:w-1/3 space-y-6">
-          <ImageSelector 
-            selectedImage={selectedImage} 
-            setSelectedImage={setSelectedImage} 
-            disabled={isPlaying}
-          />
-          
-          <DifficultySelector 
-            difficulty={difficulty} 
-            setDifficulty={setDifficulty} 
-            disabled={isPlaying}
-          />
+          {!isPlaying && (
+            <>
+              <ImageSelector 
+                selectedImage={selectedImage} 
+                setSelectedImage={setSelectedImage} 
+                disabled={isPlaying}
+              />
+              
+              <DifficultySelector 
+                difficulty={difficulty} 
+                setDifficulty={setDifficulty} 
+                disabled={isPlaying}
+              />
+            </>
+          )}
           
           <GameControls 
             isPlaying={isPlaying}
@@ -187,6 +205,8 @@ function App() {
         </div>
       </main>
       
+      <Footer />
+      
       {showVictory && (
         <VictoryModal 
           time={time} 
@@ -196,6 +216,10 @@ function App() {
           onPlayAgain={() => {
             setShowVictory(false);
             resetGame();
+          }}
+          onMainMenu={() => {
+            setShowVictory(false);
+            restartGame();
           }}
         />
       )}

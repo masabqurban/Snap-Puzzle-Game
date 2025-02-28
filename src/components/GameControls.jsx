@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayIcon, RefreshCwIcon, SaveIcon, LoaderIcon as LoadIcon, ClockIcon, MoveIcon, PercentIcon } from 'lucide-react';
+import { PlayIcon, RefreshCwIcon, SaveIcon, LoaderIcon as LoadIcon, ClockIcon, MoveIcon, PercentIcon, HomeIcon } from 'lucide-react';
 
 const formatTime = (seconds) => {
   const mins = Math.floor(seconds / 60);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrophyIcon, ShareIcon, ClockIcon, MoveIcon, XIcon } from 'lucide-react';
+import { TrophyIcon, ShareIcon, ClockIcon, MoveIcon, XIcon, HomeIcon, RefreshCwIcon } from 'lucide-react';
 
 const formatTime = (seconds) => {
   const mins = Math.floor(seconds / 60);
@@ -7,7 +7,7 @@ const formatTime = (seconds) => {
   return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 };
 
-const VictoryModal = ({ time, moves, difficulty, onClose, onPlayAgain }) => {
+const VictoryModal = ({ time, moves, difficulty, onClose, onPlayAgain, onMainMenu }) => {
   const difficultyText = {
     3: 'Easy (3×3)',
     4: 'Medium (4×4)',
@@ -15,11 +15,11 @@ const VictoryModal = ({ time, moves, difficulty, onClose, onPlayAgain }) => {
   }[difficulty];
   
   const handleShare = () => {
-    const text = `I solved a ${difficultyText} puzzle in ${formatTime(time)} with ${moves} moves! Can you beat my score?`;
+    const text = `I solved a ${difficultyText} puzzle in ${formatTime(time)} with ${moves} moves in Snap Puzzle Game! Can you beat my score?`;
     
     if (navigator.share) {
       navigator.share({
-        title: 'Puzzle Picture Game',
+        title: 'Snap Puzzle Game',
         text: text,
       }).catch(err => {
         console.error('Error sharing:', err);
@@ -77,22 +77,31 @@ const VictoryModal = ({ time, moves, difficulty, onClose, onPlayAgain }) => {
             </div>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="grid grid-cols-2 gap-3 mb-3">
             <button
-              className="flex-1 flex items-center justify-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+              className="flex items-center justify-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
               onClick={onPlayAgain}
             >
+              <RefreshCwIcon className="h-4 w-4 mr-2" />
               Play Again
             </button>
             
             <button
-              className="flex-1 flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200 transition-colors"
+              className="flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200 transition-colors"
               onClick={handleShare}
             >
               <ShareIcon className="h-4 w-4 mr-2" />
               Share Score
             </button>
           </div>
+          
+          <button
+            className="w-full flex items-center justify-center px-4 py-2 bg-amber-500 text-white rounded-md hover:bg-amber-600 transition-colors"
+            onClick={onMainMenu}
+          >
+            <HomeIcon className="h-4 w-4 mr-2" />
+            Return to Main Menu
+          </button>
         </div>
       </div>
     </div>
