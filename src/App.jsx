@@ -8,6 +8,7 @@ import GameControls from './components/GameControls';
 import VictoryModal from './components/VictoryModal';
 import { splitImage, shufflePieces } from './utils/imageUtils';
 import { saveGame, loadGame, clearSavedGame } from './utils/storageUtils';
+import { ImageIcon } from 'lucide-react';
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -192,6 +193,25 @@ function App() {
             moves={moves}
             progressPercentage={progressPercentage}
           />
+          
+          {/* Original Image Preview (shown only during gameplay) */}
+          {isPlaying && selectedImage && (
+            <div className="bg-white rounded-lg shadow-md p-4">
+              <h2 className="text-xl font-semibold mb-4 flex items-center">
+                <ImageIcon className="h-5 w-5 mr-2" />
+                Original Image
+              </h2>
+              <div className="flex justify-center">
+                <div className="relative w-full max-w-xs rounded-md overflow-hidden border border-gray-200 shadow-sm">
+                  <img 
+                    src={selectedImage.url} 
+                    alt={selectedImage.alt}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         
         <div className="lg:w-2/3 flex justify-center">
