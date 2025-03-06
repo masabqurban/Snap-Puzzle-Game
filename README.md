@@ -10,9 +10,9 @@ Welcome to **Snap Puzzle Game**, a dynamic picture puzzle experience where you c
 
 **Tech Stack used:**  
 - React JS  
+- Vite  
 - JavaScript  
 - Tailwind CSS  
-- Vite  
 - Vercel  
 
 
